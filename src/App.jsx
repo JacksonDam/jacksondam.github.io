@@ -12,20 +12,40 @@ import {
 } from '@heroui/react';
 import { Tabs, Tab } from '@heroui/react';
 import { motion, AnimatePresence } from 'framer-motion';
+import parse from 'html-react-parser';
 import CardPanel from './components/CardPanel';
+import profileImg from './assets/profile.jpeg';
+
+import aboutMd from './cardcontents/about.md?raw';
+import experienceMd from './cardcontents/experience.md?raw';
+import projectsMd from './cardcontents/projects.md?raw';
+import awardsMd from './cardcontents/awards.md?raw';
+import skillsMd from './cardcontents/skills.md?raw';
+import volunteeringMd from './cardcontents/volunteering.md?raw';
 
 const variants = {
-  enter: { scale: 0.8, opacity: 0 },
-  center: { scale: 1, opacity: 1, transition: { duration: 0.3 } },
-  exit: { scale: 0.8, opacity: 0, transition: { duration: 0.2 } }
+  enter:  { scale: 0.8, opacity: 0 },
+  center: { scale: 1,   opacity: 1, transition: { duration: 0.3 } },
+  exit:   { scale: 0.8, opacity: 0, transition: { duration: 0.2 } },
 };
 
 const menuItems = [
-  { key: 'about', title: 'About' },
+  { key: 'about',      title: 'About' },
   { key: 'experience', title: 'Experience' },
-  { key: 'projects', title: 'Projects' },
-  { key: 'awards', title: 'Awards' }
+  { key: 'projects',   title: 'Projects' },
+  { key: 'awards',     title: 'Awards' },
+  { key: 'skills',     title: 'Skills' },
+  { key: 'volunteering',     title: 'Volunteering' },
 ];
+
+const mdContents = {
+  about:        aboutMd,
+  experience:   experienceMd,
+  projects:     projectsMd,
+  awards:       awardsMd,
+  skills:       skillsMd,
+  volunteering: volunteeringMd,
+};
 
 export default function App() {
   const [selectedKey, setSelectedKey] = useState('about');
@@ -36,16 +56,24 @@ export default function App() {
     setIsMenuOpen(false);
   };
 
+  const contentMd = parse(mdContents[selectedKey]);
+
   return (
     <div className="min-h-full flex flex-col">
-      <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+      <Navbar
+        isBordered
+        isMenuOpen={isMenuOpen}
+        onMenuOpenChange={setIsMenuOpen}
+      >
         <NavbarContent>
           <NavbarMenuToggle
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             className="toggler"
           />
-          <NavbarBrand> 
-            <p className="font-bold text-inherit">Jackson <b>Dam</b></p>
+          <NavbarBrand>
+            <p className="font-bold text-inherit">
+              Jackson <b>Dam</b>
+            </p>
           </NavbarBrand>
         </NavbarContent>
 
@@ -53,7 +81,7 @@ export default function App() {
           <Tabs
             aria-label="Main navigation"
             selectedKey={selectedKey}
-            onSelectionChange={(key) => handleNavigation(String(key))}
+            onSelectionChange={(key) => handleNavigation(key)}
             color="default"
             className="tabs"
           >
@@ -63,7 +91,7 @@ export default function App() {
           </Tabs>
         </NavbarContent>
 
-        <NavbarContent justify="end">
+        <NavbarContent className="cv-btn" justify="end">
           <NavbarItem>
             <Button as={Link} color="primary" href="#" variant="shadow">
               View my CV
@@ -72,23 +100,33 @@ export default function App() {
         </NavbarContent>
 
         <NavbarMenu className="flex-grow">
-          {menuItems.map((item) => (
+          {menuItems.map(item => (
             <NavbarMenuItem key={item.key}>
               <Link
-                className={`w-full ${selectedKey === item.key ? 'text-primary font-semibold' : 'text-foreground'}`}
+                className={`w-full ${
+                  selectedKey === item.key
+                    ? 'text-primary font-semibold'
+                    : 'text-foreground'
+                }`}
                 href="#"
+                size="lg"
                 onClick={(e) => {
                   e.preventDefault();
                   handleNavigation(item.key);
                 }}
-                size="lg"
               >
                 {item.title}
               </Link>
             </NavbarMenuItem>
           ))}
-          <NavbarMenuItem className="cv-btn">
-            <Button as={Link} color="primary" href="#" variant="flat" className="w-full">
+          <NavbarMenuItem>
+            <Button
+              as={Link}
+              color="primary"
+              href="#"
+              variant="flat"
+              className="w-full"
+            >
               View my CV
             </Button>
           </NavbarMenuItem>
@@ -97,27 +135,26 @@ export default function App() {
 
       <div className="flex-grow relative">
         <AnimatePresence mode="sync">
-          {menuItems.map((item) => (
-            selectedKey === item.key && (
+          {menuItems.map(item =>
+            selectedKey === item.key ? (
               <motion.div
-                className="absolute inset-0 flex flex-col items-center justify-center"
                 key={item.key}
+                className="absolute left-0 right-0 top-[64px] flex flex-col items-center justify-center px-4"
                 initial="enter"
                 animate="center"
                 exit="exit"
                 variants={variants}
               >
-                <CardPanel title={item.title}>
-                  <div>
-                    {item.key === 'about' && 'Site under construction.'}
-                    {item.key === 'experience' && 'Site under construction.'}
-                    {item.key === 'projects' && 'Site under construction.'}
-                    {item.key === 'awards' && 'Site under construction.'}
-                  </div>
+                <CardPanel
+                  title={item.title}
+                  profileSrc={profileImg}
+                  showProfile={item.key === 'about'}
+                >
+                  {contentMd}
                 </CardPanel>
               </motion.div>
-            )
-          ))}
+            ) : null
+          )}
         </AnimatePresence>
       </div>
     </div>
