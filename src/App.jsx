@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import parse from 'html-react-parser';
 import CardPanel from './components/CardPanel';
 import profileImg from './assets/profile.jpeg';
+import cv from './assets/Jackson_Dam_CV.pdf';
 
 import aboutMd from './cardcontents/about.md?raw';
 import experienceMd from './cardcontents/experience.md?raw';
@@ -93,7 +94,12 @@ export default function App() {
 
         <NavbarContent className="cv-btn" justify="end">
           <NavbarItem>
-            <Button as={Link} color="primary" href="#" variant="shadow">
+            <Button 
+              as={Link} 
+              color="primary" 
+              href={cv} 
+              variant="shadow"
+            >
               View my CV
             </Button>
           </NavbarItem>
@@ -123,7 +129,7 @@ export default function App() {
             <Button
               as={Link}
               color="primary"
-              href="#"
+              href={cv}
               variant="flat"
               className="w-full"
             >
