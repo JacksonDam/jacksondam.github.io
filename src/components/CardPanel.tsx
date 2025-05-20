@@ -23,6 +23,7 @@ export default function CardPanel({
           maxWidth: '1200px',
           minHeight: '72vh',
           marginTop: '4.8vh',
+          marginBottom: '4.8vh',
           background:
             'linear-gradient(180deg, rgb(40, 70, 120) 0%, rgb(120, 196, 254) 100%)',
           boxShadow: '0 0 24px rgba(40, 70, 120, 0.7), 0 0 48px rgba(120, 196, 254, 0.7)'
