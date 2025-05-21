@@ -2,14 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (max-width: 1180px) {
+html, ul, nav, .tabs, div[data-slot="base"], div[data-slot="tabList"], div[data-slot="tabContent"], div[data-slot="tab"], div[data-slot="cursor"] {
+  transition: background-color 0.25s ease, color 0.25s ease !important;
+}
+
+@media (max-width: 1100px) {
   .toggler {
     display: flex;
   }
   .tabs {
     display: none;
   }
-  .cv-btn {
+  .desk-btns {
     display: none;
   }
 
@@ -22,14 +26,14 @@
   }
 }
 
-@media (min-width: 1180px) {
+@media (min-width: 1100px) {
   .toggler {
     display: none;
   }
   .tabs {
     display: flex;
   }
-  .cv-btn {
+  .desk-btns {
     display: flex;
   }
   
@@ -45,4 +49,18 @@
 .card-title {
   text-shadow: 0px 0px 12px rgb(0 0 0 / 0.1), 0px 0px 12px rgb(0 0 0 / 0.1), 0px 0px 12px rgb(0 0 0 / 0.1);
   color: white !important;
+}
+
+.copyright {
+  opacity: 0.2;
+}
+
+.ld-toggle {
+  max-width: 2.5rem;
+  max-height: 2.5rem;
+  min-width: 0.0rem !important;
+}
+
+.nbm-transplant {
+  margin-bottom: 0.5rem;
 }

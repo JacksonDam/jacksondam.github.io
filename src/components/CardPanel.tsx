@@ -21,7 +21,6 @@ export default function CardPanel({
           position: 'relative',
           width: '86vw',
           maxWidth: '1200px',
-          minHeight: '72vh',
           marginTop: '4.8vh',
           marginBottom: '4.8vh',
           background:
