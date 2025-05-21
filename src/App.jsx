@@ -14,7 +14,7 @@ import { Tabs, Tab } from '@heroui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import parse from 'html-react-parser';
 import CardPanel from './components/CardPanel';
-import profileImg from './assets/profile.jpeg';
+import profileImg from './assets/profile.webp';
 import cv from './assets/Jackson_Dam_CV.pdf';
 
 import aboutMd from './cardcontents/about.md?raw';
@@ -151,7 +151,7 @@ export default function App() {
 
         <NavbarContent className="desk-btns" justify="end">
           <NavbarItem className="ld-toggle">
-            <Button onPress={toggleTheme} radius="full" style={{ cursor: 'pointer', borderColor: outlineColor, width: '2.5rem', height: '2.5rem' }} className="ld-toggle border bg-clear">
+            <Button onPress={toggleTheme} radius="full" style={{ cursor: 'pointer', borderColor: outlineColor, width: '2.5rem', height: '2.5rem' }} className="ld-toggle border bg-clear" aria-label="Toggle UI theme">
               <AnimatePresence initial={false} exitBeforeEnter mode="popLayout">
                 {theme === 'light' ? (
                   <motion.div key="sun" initial={{ rotate: -45, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 45, opacity: 0 }}>
@@ -177,7 +177,7 @@ export default function App() {
           </NavbarItem>
         </NavbarContent>
 
-        <NavbarMenu className="flex-grow">
+        <NavbarMenu className="flex-grow nb-menu">
           {menuItems.map(item => (
             <NavbarMenuItem key={item.key}>
               <Link
@@ -197,8 +197,8 @@ export default function App() {
               </Link>
             </NavbarMenuItem>
           ))}
-          <NavbarMenuItem className="nbm-transplant ld-toggle">
-            <Button onPress={toggleTheme} radius="full" style={{ cursor: 'pointer', borderColor: outlineColor, width: '2.5rem', height: '2.5rem' }} className="ld-toggle border bg-clear">
+          <NavbarMenuItem className="nbm-transplant ld-toggle" aria-label="Toggle UI theme">
+            <Button onPress={toggleTheme} radius="full" style={{ cursor: 'pointer', borderColor: outlineColor, width: '2.5rem', height: '2.5rem' }} className="ld-toggle border bg-clear" aria-label="Toggle UI theme">
               <AnimatePresence initial={false} exitBeforeEnter mode="popLayout">
                 {theme === 'light' ? (
                   <motion.div key="sun" initial={{ rotate: -45, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 45, opacity: 0 }}>
@@ -255,17 +255,17 @@ export default function App() {
         <h1 style={{ fontSize: '1.75rem' }}>Let's chat!</h1>
         <div className="flex justify-center" style={{ fontSize: '3rem', fontWeight: 700, marginTop: '1rem', marginBottom: '2rem' }}>
           <Link href="https://www.linkedin.com/in/jacksondam" target="_blank">
-            <div className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ marginRight: '1rem', borderColor: outlineColor }}>
+            <div aria-label="Visit Jackson Dam's LinkedIn page" className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ marginRight: '1rem', borderColor: outlineColor }}>
               <LinkedIn fill={iconFill} />
             </div>
           </Link>
           <Link href="https://github.com/JacksonDam" target="_blank">
-            <div className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ borderColor: outlineColor }}>
+            <div aria-label="Visit Jackson Dam's GitHub page" className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ borderColor: outlineColor }}>
               <GitHub fill={iconFill} />
             </div>
           </Link>
           <Link href="mailto:jacksondam@protonmail.com">
-            <div className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ marginLeft: '1rem', borderColor: outlineColor }}>
+            <div aria-label="Send an email to Jackson Dam" className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ marginLeft: '1rem', borderColor: outlineColor }}>
               <Mail fill={iconFill} />
             </div>
           </Link>

@@ -10,6 +10,9 @@ html, ul, nav, .tabs, div[data-slot="base"], div[data-slot="tabList"], div[data-
   .toggler {
     display: flex;
   }
+  .nb-menu {
+    display: flex;
+  }
   .tabs {
     display: none;
   }
@@ -28,6 +31,9 @@ html, ul, nav, .tabs, div[data-slot="base"], div[data-slot="tabList"], div[data-
 
 @media (min-width: 1100px) {
   .toggler {
+    display: none;
+  }
+  .nb-menu {
     display: none;
   }
   .tabs {
