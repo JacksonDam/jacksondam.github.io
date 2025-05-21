@@ -4,7 +4,7 @@ Oct 2023: <b>2nd place team</b> for GuitarGuitar challenge at “Do you have the
 <br><br>
 Oct 2021: <b>1st place team</b> for Morgan Stanley challenge at Glasgow University Code Olympics
 <br><br>
-Oct 2021: <b>2nd overall team</b> at Glasgow Uni Code Olympics
+Oct 2021: <b>2nd overall team</b> at Glasgow University Code Olympics
 <br><br>
 Oct 2021: <b>5th place individual</b> in HackerRank Python problems at Glasgow University Code Olympics
 <br><br>
