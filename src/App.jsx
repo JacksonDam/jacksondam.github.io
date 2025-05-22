@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Navbar,
   NavbarBrand,
@@ -10,19 +10,14 @@ import {
   Link,
   Button
 } from '@heroui/react';
+
 import { Tabs, Tab } from '@heroui/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import parse from 'html-react-parser';
 import CardPanel from './components/CardPanel';
 import profileImg from './assets/profile.webp';
 import cv from './assets/Jackson_Dam_CV.pdf';
 
-import aboutMd from './cardcontents/about.md?raw';
-import experienceMd from './cardcontents/experience.md?raw';
-import projectsMd from './cardcontents/projects.md?raw';
-import awardsMd from './cardcontents/awards.md?raw';
-import skillsMd from './cardcontents/skills.md?raw';
-import volunteeringMd from './cardcontents/volunteering.md?raw';
+import { About, Awards, Experience, Projects, Skills, Volunteering } from './components/cardcontents';
 
 const variants = {
   enter:  { scale: 0.8, opacity: 0 },
@@ -39,13 +34,13 @@ const menuItems = [
   { key: 'volunteering',     title: 'Volunteering' },
 ];
 
-const mdContents = {
-  about:        aboutMd,
-  experience:   experienceMd,
-  projects:     projectsMd,
-  awards:       awardsMd,
-  skills:       skillsMd,
-  volunteering: volunteeringMd,
+const contents = {
+  about:        About,
+  experience:   Awards,
+  projects:     Experience,
+  awards:       Projects,
+  skills:       Skills,
+  volunteering: Volunteering,
 };
 
 const LinkedIn = ({ fill }) => (
@@ -107,14 +102,14 @@ export default function App() {
     localStorage.setItem('theme', next);
   };
 
-  const handleNavigation = (key) => {
+  const handleNavigation = useCallback((key) => {
     setSelectedKey(key);
     setIsMenuOpen(false);
-  };
+  }, []);
 
   const iconFill = theme === 'light' ? '#000000' : '#ffffff';
   const outlineColor = theme === 'dark' ? '#ffffff' : '#000000';
-  const contentMd = parse(mdContents[selectedKey]);
+  const Component = contents[selectedKey];
 
   return (
     <div className="min-h-full flex flex-col">
@@ -243,7 +238,7 @@ export default function App() {
                   profileSrc={profileImg}
                   showProfile={item.key === 'about'}
                 >
-                  {contentMd}
+                  <Component />
                 </CardPanel>
               </motion.div>
             ) : null
