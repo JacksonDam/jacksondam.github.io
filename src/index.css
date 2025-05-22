@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
+}
+
 html, ul, nav, .tabs, div[data-slot="base"], div[data-slot="tabList"], div[data-slot="tabContent"], div[data-slot="tab"], div[data-slot="cursor"] {
   transition: background-color 0.25s ease, color 0.25s ease !important;
 }
