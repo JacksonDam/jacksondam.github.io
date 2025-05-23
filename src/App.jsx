@@ -21,7 +21,7 @@ import { About, Awards, Experience, Projects, Skills, Volunteering } from './com
 
 const variants = {
   enter:  { 
-    scale: 0.9, 
+    scale: 0.8, 
     opacity: 0,
     transition: { 
       duration: 0.12, 
@@ -41,8 +41,8 @@ const variants = {
     }
   },
   exit:   { 
-    scale: 0.9, 
-    opacity: 0, 
+    scale: 0.8, 
+    opacity: 0,
     transition: { 
       duration: 0.08, 
       ease: [0.33, 1, 0.68, 1],
@@ -162,12 +162,12 @@ const ContentRenderer = React.memo(({ selectedKey, profileImg }) => {
   return (
     <div style={{ 
       willChange: 'transform, opacity',
-      transform: 'translateZ(0)',
-      WebkitTransform: 'translateZ(0)',
+      transform: 'translate3d(0,0,0)',
+      WebkitTransform: 'translate3d(0,0,0)',
       backfaceVisibility: 'hidden',
       WebkitBackfaceVisibility: 'hidden',
       perspective: 1000,
-      WebkitPerspective: 1000
+      WebkitPerspective: 1000,
     }}>
       <CardPanel
         title={currentItem.title}
@@ -312,11 +312,9 @@ export default function App() {
         </NavbarMenu>
       </Navbar>
 
-      <div className="flex-grow relative" style={{ 
-        isolation: 'isolate',
-        contain: 'layout style paint',
-        transform: 'translateZ(0)',
-        WebkitTransform: 'translateZ(0)'
+      <div className="flex-grow relative" style={{  
+        transform: 'translate3d(0,0,0)',
+        WebkitTransform: 'translate3d(0,0,0)',
       }}>
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.div
@@ -329,8 +327,8 @@ export default function App() {
             style={{ 
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
-              transform: 'translateZ(0)',
-              WebkitTransform: 'translateZ(0)',
+              transform: 'translate3d(0,0,0)',
+              WebkitTransform: 'translate3d(0,0,0)',
               perspective: 1000,
               WebkitPerspective: 1000,
               transformStyle: 'preserve-3d',
