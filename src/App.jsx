@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Navbar,
   NavbarBrand,
@@ -20,9 +20,36 @@ import cv from './assets/Jackson_Dam_CV.pdf';
 import { About, Awards, Experience, Projects, Skills, Volunteering } from './components/cardcontents';
 
 const variants = {
-  enter:  { scale: 0.8, opacity: 0 },
-  center: { scale: 1,   opacity: 1, transition: { duration: 0.3 } },
-  exit:   { scale: 0.8, opacity: 0, transition: { duration: 0.2 } },
+  enter:  { 
+    scale: 0.9, 
+    opacity: 0,
+    transition: { 
+      duration: 0.12, 
+      ease: [0.33, 1, 0.68, 1],
+      scale: { type: "tween", ease: [0.33, 1, 0.68, 1] },
+      opacity: { type: "tween", ease: [0.33, 1, 0.68, 1] }
+    }
+  },
+  center: { 
+    scale: 1, 
+    opacity: 1, 
+    transition: { 
+      duration: 0.15, 
+      ease: [0.33, 1, 0.68, 1],
+      scale: { type: "tween", ease: [0.33, 1, 0.68, 1] },
+      opacity: { type: "tween", ease: [0.33, 1, 0.68, 1] }
+    }
+  },
+  exit:   { 
+    scale: 0.9, 
+    opacity: 0, 
+    transition: { 
+      duration: 0.08, 
+      ease: [0.33, 1, 0.68, 1],
+      scale: { type: "tween", ease: [0.33, 1, 0.68, 1] },
+      opacity: { type: "tween", ease: [0.33, 1, 0.68, 1] }
+    }
+  },
 };
 
 const menuItems = [
@@ -31,19 +58,19 @@ const menuItems = [
   { key: 'projects',   title: 'Projects' },
   { key: 'awards',     title: 'Awards' },
   { key: 'skills',     title: 'Skills' },
-  { key: 'volunteering',     title: 'Volunteering' },
+  { key: 'volunteering', title: 'Volunteering' },
 ];
 
 const contents = {
   about:        About,
-  experience:   Awards,
-  projects:     Experience,
-  awards:       Projects,
+  experience:   Experience,
+  projects:     Projects,
+  awards:       Awards,
   skills:       Skills,
   volunteering: Volunteering,
 };
 
-const LinkedIn = ({ fill }) => (
+const LinkedIn = React.memo(({ fill }) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill={fill} height="80px" width="80px" viewBox="-120 -120 540 540">
     <g>
       <path d="M72.16,99.73H9.927c-2.762,0-5,2.239-5,5v199.928c0,2.762,2.238,5,5,5H72.16c2.762,0,5-2.238,5-5V104.73C77.16,101.969,74.922,99.73,72.16,99.73z"/>
@@ -51,19 +78,21 @@ const LinkedIn = ({ fill }) => (
       <path d="M230.454,94.761c-24.995,0-43.472,10.745-54.679,22.954V104.73c0-2.761-2.238-5-5-5h-59.599c-2.762,0-5,2.239-5,5v199.928c0,2.762,2.238,5,5,5h62.097c2.762,0,5-2.238,5-5v-98.918c0-33.333,9.054-46.319,32.29-46.319c25.306,0,27.317,20.818,27.317,48.034v97.204c0,2.762,2.238,5,5,5H305c2.762,0,5-2.238,5-5V194.995C310,145.43,300.549,94.761,230.454,94.761z"/>
     </g>
   </svg>
-);
-const GitHub = ({ fill }) => (
+));
+
+const GitHub = React.memo(({ fill }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 50 50" fill={fill}>
     <path d="M17.791,46.836C18.502,46.53,19,45.823,19,45v-5.4c0-0.197,0.016-0.402,0.041-0.61C19.027,38.994,19.014,38.997,19,39c0,0-3,0-3.6,0c-1.5,0-2.8-0.6-3.4-1.8c-0.7-1.3-1-3.5-2.8-4.7C8.9,32.3,9.1,32,9.7,32c0.6,0.1,1.9,0.9,2.7,2c0.9,1.1,1.8,2,3.4,2c2.487,0,3.82-0.125,4.622-0.555C21.356,34.056,22.649,33,24,33v-0.025c-5.668-0.182-9.289-2.066-10.975-4.975c-3.665,0.042-6.856,0.405-8.677,0.707c-0.058-0.327-0.108-0.656-0.151-0.987c1.797-0.296,4.843-0.647,8.345-0.714c-0.112-0.276-0.209-0.559-0.291-0.849c-3.511-0.178-6.541-0.039-8.187,0.097c-0.02-0.332-0.047-0.663-0.051-0.999c1.649-0.135,4.597-0.27,8.018-0.111c-0.079-0.5-0.13-1.011-0.13-1.543c0-1.7,0.6-3.5,1.7-5c-0.5-1.7-1.2-5.3,0.2-6.6c2.7,0,4.6,1.3,5.5,2.1C21,13.4,22.9,13,25,13s4,0.4,5.6,1.1c0.9-0.8,2.8-2.1,5.5-2.1c1.5,1.4,0.7,5,0.2,6.6c1.1,1.5,1.7,3.2,1.6,5c0,0.484-0.045,0.951-0.11,1.409c3.499-0.172,6.527-0.034,8.204,0.102c-0.002,0.337-0.033,0.666-0.051,0.999c-1.671-0.138-4.775-0.28-8.359-0.089c-0.089,0.336-0.197,0.663-0.325,0.98c3.546,0.046,6.665,0.389,8.548,0.689c-0.043,0.332-0.093,0.661-0.151,0.987c-1.912-0.306-5.171-0.664-8.879-0.682C35.112,30.873,31.557,32.75,26,32.969V33c2.6,0,5,3.9,5,6.6V45c0,0.823,0.498,1.53,1.209,1.836C41.37,43.804,48,35.164,48,25C48,12.318,37.683,2,25,2S2,12.318,2,25C2,35.164,8.63,43.804,17.791,46.836z"/>
   </svg>
-);
-const Mail = ({ fill }) => (
+));
+
+const Mail = React.memo(({ fill }) => (
   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill={fill}>
     <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/>
   </svg>
-);
+));
 
-const Sun = ({ fill, stroke }) => (
+const Sun = React.memo(({ fill, stroke }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
     <circle cx="12" cy="12" r="5" fill={fill} />
     <g stroke={stroke} strokeWidth="2">
@@ -77,12 +106,79 @@ const Sun = ({ fill, stroke }) => (
       <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
     </g>
   </svg>
-);
-const Moon = ({ fill }) => (
+));
+
+const Moon = React.memo(({ fill }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
     <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill={fill} />
   </svg>
-);
+));
+
+const ThemeToggle = React.memo(({ theme, onToggle, outlineColor, iconFill }) => (
+  <Button 
+    onPress={onToggle} 
+    radius="full" 
+    style={{ 
+      cursor: 'pointer', 
+      borderColor: outlineColor, 
+      width: '2.5rem', 
+      height: '2.5rem' 
+    }} 
+    className="ld-toggle border bg-clear" 
+    aria-label="Toggle UI theme"
+  >
+    <AnimatePresence mode="wait" initial={false}>
+      {theme === 'light' ? (
+        <motion.div 
+          key="sun" 
+          initial={{ rotate: -45, opacity: 0 }} 
+          animate={{ rotate: 0, opacity: 1 }} 
+          exit={{ rotate: 45, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Sun fill={iconFill} stroke={iconFill} />
+        </motion.div>
+      ) : (
+        <motion.div 
+          key="moon" 
+          initial={{ rotate: 45, opacity: 0 }} 
+          animate={{ rotate: 0, opacity: 1 }} 
+          exit={{ rotate: -45, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Moon fill={iconFill} />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </Button>
+));
+
+const ContentRenderer = React.memo(({ selectedKey, profileImg }) => {
+  const Component = contents[selectedKey];
+  const currentItem = menuItems.find(item => item.key === selectedKey);
+  
+  if (!Component || !currentItem) return null;
+  
+  return (
+    <div style={{ 
+      willChange: 'transform, opacity',
+      transform: 'translateZ(0)',
+      WebkitTransform: 'translateZ(0)',
+      backfaceVisibility: 'hidden',
+      WebkitBackfaceVisibility: 'hidden',
+      perspective: 1000,
+      WebkitPerspective: 1000
+    }}>
+      <CardPanel
+        title={currentItem.title}
+        profileSrc={profileImg}
+        showProfile={selectedKey === 'about'}
+      >
+        <Component />
+      </CardPanel>
+    </div>
+  );
+});
 
 export default function App() {
   const [selectedKey, setSelectedKey] = useState('about');
@@ -93,23 +189,32 @@ export default function App() {
     const saved = localStorage.getItem('theme') || 'dark';
     setTheme(saved);
     document.documentElement.setAttribute('data-theme', saved);
+    
+    const img = new Image();
+    img.src = profileImg;
+    
+    document.body.style.transform = 'translateZ(0)';
+    document.body.style.WebkitTransform = 'translateZ(0)';
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const next = theme === 'light' ? 'dark' : 'light';
     setTheme(next);
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
-  };
+  }, [theme]);
 
   const handleNavigation = useCallback((key) => {
-    setSelectedKey(key);
-    setIsMenuOpen(false);
-  }, []);
+    if (key === selectedKey) return;
+    
+    requestAnimationFrame(() => {
+      setSelectedKey(key);
+      setIsMenuOpen(false);
+    });
+  }, [selectedKey]);
 
   const iconFill = theme === 'light' ? '#000000' : '#ffffff';
   const outlineColor = theme === 'dark' ? '#ffffff' : '#000000';
-  const Component = contents[selectedKey];
 
   return (
     <div className="min-h-full flex flex-col">
@@ -134,7 +239,7 @@ export default function App() {
           <Tabs
             aria-label="Main navigation"
             selectedKey={selectedKey}
-            onSelectionChange={(key) => handleNavigation(key)}
+            onSelectionChange={handleNavigation}
             color="default"
             className="tabs"
           >
@@ -146,19 +251,12 @@ export default function App() {
 
         <NavbarContent className="desk-btns" justify="end">
           <NavbarItem className="ld-toggle">
-            <Button onPress={toggleTheme} radius="full" style={{ cursor: 'pointer', borderColor: outlineColor, width: '2.5rem', height: '2.5rem' }} className="ld-toggle border bg-clear" aria-label="Toggle UI theme">
-              <AnimatePresence initial={false} exitBeforeEnter mode="popLayout">
-                {theme === 'light' ? (
-                  <motion.div key="sun" initial={{ rotate: -45, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 45, opacity: 0 }}>
-                    <Sun fill={iconFill} stroke={iconFill} />
-                  </motion.div>
-                ) : (
-                  <motion.div key="moon" initial={{ rotate: 45, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -45, opacity: 0 }}>
-                    <Moon fill={iconFill} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Button>
+            <ThemeToggle 
+              theme={theme}
+              onToggle={toggleTheme}
+              outlineColor={outlineColor}
+              iconFill={iconFill}
+            />
           </NavbarItem>
           <NavbarItem>
             <Button 
@@ -193,19 +291,12 @@ export default function App() {
             </NavbarMenuItem>
           ))}
           <NavbarMenuItem className="nbm-transplant ld-toggle" aria-label="Toggle UI theme">
-            <Button onPress={toggleTheme} radius="full" style={{ cursor: 'pointer', borderColor: outlineColor, width: '2.5rem', height: '2.5rem' }} className="ld-toggle border bg-clear" aria-label="Toggle UI theme">
-              <AnimatePresence initial={false} exitBeforeEnter mode="popLayout">
-                {theme === 'light' ? (
-                  <motion.div key="sun" initial={{ rotate: -45, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 45, opacity: 0 }}>
-                    <Sun fill={iconFill} stroke={iconFill} />
-                  </motion.div>
-                ) : (
-                  <motion.div key="moon" initial={{ rotate: 45, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -45, opacity: 0 }}>
-                    <Moon fill={iconFill} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Button>
+            <ThemeToggle 
+              theme={theme}
+              onToggle={toggleTheme}
+              outlineColor={outlineColor}
+              iconFill={iconFill}
+            />
           </NavbarMenuItem>
           <NavbarMenuItem>
             <Button
@@ -221,30 +312,37 @@ export default function App() {
         </NavbarMenu>
       </Navbar>
 
-      <div className="flex-grow relative">
-        <AnimatePresence mode="popLayout">
-          {menuItems.map(item =>
-            selectedKey === item.key ? (
-              <motion.div
-                key={item.key}
-                className="left-0 right-0 top-[64px] flex flex-col items-center justify-center px-4"
-                initial="enter"
-                animate="center"
-                exit="exit"
-                variants={variants}
-              >
-                <CardPanel
-                  title={item.title}
-                  profileSrc={profileImg}
-                  showProfile={item.key === 'about'}
-                >
-                  <Component />
-                </CardPanel>
-              </motion.div>
-            ) : null
-          )}
+      <div className="flex-grow relative" style={{ 
+        isolation: 'isolate',
+        contain: 'layout style paint',
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)'
+      }}>
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.div
+            key={selectedKey}
+            className="left-0 right-0 top-[64px] flex flex-col items-center justify-center px-4"
+            initial="enter"
+            animate="center"
+            exit="exit"
+            variants={variants}
+            style={{ 
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              transform: 'translateZ(0)',
+              WebkitTransform: 'translateZ(0)',
+              perspective: 1000,
+              WebkitPerspective: 1000,
+              transformStyle: 'preserve-3d',
+              WebkitTransformStyle: 'preserve-3d',
+              willChange: 'transform, opacity'
+            }}
+          >
+            <ContentRenderer selectedKey={selectedKey} profileImg={profileImg} />
+          </motion.div>
         </AnimatePresence>
       </div>
+      
       <footer className="text-center fter" style={{marginTop: '15vh', marginBottom: '2rem'}}>
         <h1 style={{ fontSize: '3rem', fontWeight: 700 }}>Get in touch</h1>
         <h1 style={{ fontSize: '1.75rem' }}>Let's chat!</h1>
