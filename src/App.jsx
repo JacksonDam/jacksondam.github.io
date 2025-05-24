@@ -20,34 +20,40 @@ import cv from './assets/Jackson_Dam_CV.pdf';
 import { About, Awards, Experience, Projects, Skills, Volunteering } from './components/cardcontents';
 
 const variants = {
-  enter:  { 
+  enter: { 
     scale: 0.8, 
     opacity: 0,
+    filter: 'blur(8px)',
     transition: { 
       duration: 0.12, 
-      ease: [0.33, 1, 0.68, 1],
-      scale: { type: "tween", ease: [0.33, 1, 0.68, 1] },
-      opacity: { type: "tween", ease: [0.33, 1, 0.68, 1] }
+      ease: [0.33,1,0.68,1],
+      scale: { type: 'tween' },
+      opacity: { type: 'tween' },
+      filter: { type: 'tween' }
     }
   },
   center: { 
     scale: 1, 
     opacity: 1, 
+    filter: 'blur(0px)',
     transition: { 
       duration: 0.15, 
-      ease: [0.33, 1, 0.68, 1],
-      scale: { type: "tween", ease: [0.33, 1, 0.68, 1] },
-      opacity: { type: "tween", ease: [0.33, 1, 0.68, 1] }
+      ease: [0.33,1,0.68,1],
+      scale: { type: 'tween' },
+      opacity: { type: 'tween' },
+      filter: { type: 'tween' }
     }
   },
-  exit:   { 
+  exit: { 
     scale: 0.8, 
     opacity: 0,
+    filter: 'blur(8px)',
     transition: { 
       duration: 0.08, 
-      ease: [0.33, 1, 0.68, 1],
-      scale: { type: "tween", ease: [0.33, 1, 0.68, 1] },
-      opacity: { type: "tween", ease: [0.33, 1, 0.68, 1] }
+      ease: [0.33,1,0.68,1],
+      scale: { type: 'tween' },
+      opacity: { type: 'tween' },
+      filter: { type: 'tween' }
     }
   },
 };
@@ -162,12 +168,6 @@ const ContentRenderer = React.memo(({ selectedKey, profileImg }) => {
   return (
     <div style={{ 
       willChange: 'transform, opacity',
-      transform: 'translate3d(0,0,0)',
-      WebkitTransform: 'translate3d(0,0,0)',
-      backfaceVisibility: 'hidden',
-      WebkitBackfaceVisibility: 'hidden',
-      perspective: 1000,
-      WebkitPerspective: 1000,
     }}>
       <CardPanel
         title={currentItem.title}
@@ -192,9 +192,6 @@ export default function App() {
     
     const img = new Image();
     img.src = profileImg;
-    
-    document.body.style.transform = 'translateZ(0)';
-    document.body.style.WebkitTransform = 'translateZ(0)';
   }, []);
 
   const toggleTheme = useCallback(() => {
@@ -312,10 +309,7 @@ export default function App() {
         </NavbarMenu>
       </Navbar>
 
-      <div className="flex-grow relative" style={{  
-        transform: 'translate3d(0,0,0)',
-        WebkitTransform: 'translate3d(0,0,0)',
-      }}>
+      <div className="flex-grow relative">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.div
             key={selectedKey}
@@ -324,17 +318,6 @@ export default function App() {
             animate="center"
             exit="exit"
             variants={variants}
-            style={{ 
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-              transform: 'translate3d(0,0,0)',
-              WebkitTransform: 'translate3d(0,0,0)',
-              perspective: 1000,
-              WebkitPerspective: 1000,
-              transformStyle: 'preserve-3d',
-              WebkitTransformStyle: 'preserve-3d',
-              willChange: 'transform, opacity'
-            }}
           >
             <ContentRenderer selectedKey={selectedKey} profileImg={profileImg} />
           </motion.div>
