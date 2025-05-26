@@ -63,7 +63,7 @@ export function Projects() {
             className="absolute bg-black/40 bottom-0 z-10 border-t border-white/20 items-center justify-between px-4 py-2" 
             style={{backdropFilter: "blur(48px)"}}
           >
-            <p className="text-tiny text-white/80 truncate flex-1">
+            <p className="text-tiny text-white/80 truncate flex-1 video-card-description">
               {project.description}
             </p>
             <Button
