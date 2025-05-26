@@ -6,6 +6,7 @@ interface CardPanelProps {
   children: React.ReactNode;
   showProfile?: boolean;
   profileSrc?: string;
+  contentType?: string;
 }
 
 export default function CardPanel({
@@ -13,6 +14,7 @@ export default function CardPanel({
   children,
   showProfile = false,
   profileSrc = '',
+  contentType = 'card-body-text',
 }: CardPanelProps) {
   return (
     <div className="flex items-center justify-center">
@@ -57,10 +59,10 @@ export default function CardPanel({
 
         <CardBody
           className="z-10 flex flex-col gap-4"
-          style={{ paddingTop: '1rem', paddingLeft: '1.5rem' }}
+          style={{ paddingTop: '1rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
         >
           <div className="card-title" style={{ fontSize: '3rem', fontWeight: 700 }}>{title}</div>
-          <div className="overflow-auto card-body-text py-3">{children}</div>
+          <div className={`overflow-auto py-3 ${contentType}`}>{children}</div>
         </CardBody>
       </Card>
     </div>

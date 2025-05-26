@@ -173,6 +173,7 @@ const ContentRenderer = React.memo(({ selectedKey, profileImg }) => {
         title={currentItem.title}
         profileSrc={profileImg}
         showProfile={selectedKey === 'about'}
+        contentType={selectedKey === 'projects' ? '' : 'card-body-text'}
       >
         <Component />
       </CardPanel>
