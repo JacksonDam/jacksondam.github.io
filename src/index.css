@@ -40,6 +40,9 @@ html, ul, nav, .tabs, div[data-slot="base"], div[data-slot="tabList"], div[data-
     padding-right: 2rem;
     color: white !important;
   }
+  .splash-name {
+    font-size: 2.5rem;
+  }
 }
 
 @media (min-width: 1100px) {
@@ -67,6 +70,10 @@ html, ul, nav, .tabs, div[data-slot="base"], div[data-slot="tabList"], div[data-
     text-shadow: 0px 0px 6px rgb(0 0 0 / 0.1), 0px 0px 6px rgb(0 0 0 / 0.1), 0px 0px 6px rgb(0 0 0 / 0.1);
     padding-right: 2rem;
     color: white !important;
+  }
+
+  .splash-name {
+    font-size: 5rem;
   }
 }
 

@@ -12,7 +12,7 @@ import {
 } from '@heroui/react';
 
 import { Tabs, Tab } from '@heroui/react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, LazyMotion, domAnimation, AnimatePresence } from 'framer-motion';
 import CardPanel from './components/CardPanel';
 import profileImg from './assets/profile.webp';
 import cv from './assets/Jackson_Dam_CV.pdf';
@@ -120,6 +120,12 @@ const Moon = React.memo(({ fill }) => (
   </svg>
 ));
 
+const Medium = React.memo(({ fill }) => (
+  <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+    <path d="M2.846 6.887c.03-.295-.083-.586-.303-.784l-2.24-2.7v-.403h6.958l5.378 11.795 4.728-11.795h6.633v.403l-1.916 1.837c-.165.126-.247.333-.213.538v13.498c-.034.204.048.411.213.537l1.871 1.837v.403h-9.412v-.403l1.939-1.882c.19-.19.19-.246.19-.537v-10.91l-5.389 13.688h-.728l-6.275-13.688v9.174c-.052.385.076.774.347 1.052l2.521 3.058v.404h-7.148v-.404l2.521-3.058c.27-.279.39-.67.325-1.052v-10.608z" fill={fill}/>
+  </svg>
+));
+
 const ThemeToggle = React.memo(({ theme, onToggle, outlineColor, iconFill }) => (
   <Button 
     onPress={onToggle} 
@@ -133,9 +139,9 @@ const ThemeToggle = React.memo(({ theme, onToggle, outlineColor, iconFill }) => 
     className="ld-toggle border bg-clear" 
     aria-label="Toggle UI theme"
   >
-    <AnimatePresence mode="wait" initial={false}>
+    <LazyMotion features={domAnimation}>
       {theme === 'light' ? (
-        <motion.div 
+        <m.div 
           key="sun" 
           initial={{ rotate: -45, opacity: 0 }} 
           animate={{ rotate: 0, opacity: 1 }} 
@@ -143,9 +149,9 @@ const ThemeToggle = React.memo(({ theme, onToggle, outlineColor, iconFill }) => 
           transition={{ duration: 0.2 }}
         >
           <Sun fill={iconFill} stroke={iconFill} />
-        </motion.div>
+        </m.div>
       ) : (
-        <motion.div 
+        <m.div 
           key="moon" 
           initial={{ rotate: 45, opacity: 0 }} 
           animate={{ rotate: 0, opacity: 1 }} 
@@ -153,9 +159,9 @@ const ThemeToggle = React.memo(({ theme, onToggle, outlineColor, iconFill }) => 
           transition={{ duration: 0.2 }}
         >
           <Moon fill={iconFill} />
-        </motion.div>
+        </m.div>
       )}
-    </AnimatePresence>
+    </LazyMotion>
   </Button>
 ));
 
@@ -185,6 +191,7 @@ export default function App() {
   const [selectedKey, setSelectedKey] = useState('about');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
+  const [showNameSplash, setShowNameSplash] = useState(true);
 
   useEffect(() => {
     const saved = localStorage.getItem('theme') || 'dark';
@@ -193,6 +200,12 @@ export default function App() {
     
     const img = new Image();
     img.src = profileImg;
+
+    const timer = setTimeout(() => {
+      setShowNameSplash(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const toggleTheme = useCallback(() => {
@@ -213,140 +226,185 @@ export default function App() {
 
   const iconFill = theme === 'light' ? '#000000' : '#ffffff';
   const outlineColor = theme === 'dark' ? '#ffffff' : '#000000';
+  const pageTransition = { duration: 0.75, ease: [0.33,1,0.68,1] };
 
   return (
-    <div className="min-h-full flex flex-col">
-      <Navbar
-        isBordered
-        isMenuOpen={isMenuOpen}
-        onMenuOpenChange={setIsMenuOpen}
-      >
-        <NavbarContent>
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            className="toggler"
-          />
-          <NavbarBrand>
-            <p className="font-bold text-inherit">
-              Jackson <b>Dam</b>
-            </p>
-          </NavbarBrand>
-        </NavbarContent>
-
-        <NavbarContent className="flex flex-1 gap-4 justify-center">
-          <Tabs
-            aria-label="Main navigation"
-            selectedKey={selectedKey}
-            onSelectionChange={handleNavigation}
-            color="default"
-            className="tabs"
+    <LazyMotion features={domAnimation}>
+      <AnimatePresence mode="wait">
+        {showNameSplash ? (
+          <m.div
+            key="name-splash"
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.33,1,0.68,1] }}
           >
-            {menuItems.map(item => (
-              <Tab key={item.key} title={item.title} />
-            ))}
-          </Tabs>
-        </NavbarContent>
-
-        <NavbarContent className="desk-btns" justify="end">
-          <NavbarItem className="ld-toggle">
-            <ThemeToggle 
-              theme={theme}
-              onToggle={toggleTheme}
-              outlineColor={outlineColor}
-              iconFill={iconFill}
-            />
-          </NavbarItem>
-          <NavbarItem>
-            <Button 
-              as={Link} 
-              color="primary" 
-              href={cv} 
-              variant="shadow"
+            <m.h1
+              className="splash-name text-center"
+              initial={{ filter: "blur(12px)", scale: 0.8, opacity: 0 }}
+              animate={{ filter: "blur(0px)", scale: 1, opacity: 1 }}
+              transition={{ duration: 0.75, delay: 0.2, ease: [0.33,1,0.68,1] }}
             >
-              View my CV
-            </Button>
-          </NavbarItem>
-        </NavbarContent>
+              Jackson <b>Dam</b>  
+            </m.h1>
+          </m.div>
+        ) : (
+          <m.div
+            key="main-content"
+            className="min-h-full flex flex-col"
+            initial={{ filter: 'blur(48px)', opacity: 0 }}
+            animate={{ filter: 'blur(0px)', opacity: 1 }}
+            transition={pageTransition}
+          >
+        <div className="min-h-full flex flex-col">
+          <Navbar
+            isBordered
+            isMenuOpen={isMenuOpen}
+            onMenuOpenChange={setIsMenuOpen}
+          >
+            <NavbarContent>
+              <NavbarMenuToggle
+                aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                className="toggler"
+              />
+              <NavbarBrand>
+                <p className="font-bold text-inherit">
+                  Jackson <b>Dam</b>
+                </p>
+              </NavbarBrand>
+            </NavbarContent>
 
-        <NavbarMenu className="flex-grow nb-menu">
-          {menuItems.map(item => (
-            <NavbarMenuItem key={item.key}>
-              <Link
-                className={`w-full ${
-                  selectedKey === item.key
-                    ? 'text-primary font-semibold'
-                    : 'text-foreground'
-                }`}
-                href="#"
-                size="lg"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavigation(item.key);
-                }}
+            <NavbarContent className="flex flex-1 gap-4 justify-center">
+              <Tabs
+                aria-label="Main navigation"
+                selectedKey={selectedKey}
+                onSelectionChange={handleNavigation}
+                color="default"
+                className="tabs"
               >
-                {item.title}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-          <NavbarMenuItem className="nbm-transplant ld-toggle" aria-label="Toggle UI theme">
-            <ThemeToggle 
-              theme={theme}
-              onToggle={toggleTheme}
-              outlineColor={outlineColor}
-              iconFill={iconFill}
-            />
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Button
-              as={Link}
-              color="primary"
-              href={cv}
-              variant="flat"
-              className="w-full"
-            >
-              View my CV
-            </Button>
-          </NavbarMenuItem>
-        </NavbarMenu>
-      </Navbar>
+                {menuItems.map(item => (
+                  <Tab key={item.key} title={item.title} />
+                ))}
+              </Tabs>
+            </NavbarContent>
 
-      <div className="flex-grow relative">
-        <AnimatePresence mode="popLayout" initial={false}>
-          <motion.div
-            key={selectedKey}
-            className="left-0 right-0 top-[64px] flex flex-col items-center justify-center px-4"
-            initial="enter"
-            animate="center"
-            exit="exit"
-            variants={variants}
-          >
-            <ContentRenderer selectedKey={selectedKey} profileImg={profileImg} />
-          </motion.div>
-        </AnimatePresence>
-      </div>
-      
-      <footer className="text-center fter" style={{marginTop: '15vh', marginBottom: '2rem'}}>
-        <h1 style={{ fontSize: '3rem', fontWeight: 700 }}>Get in touch</h1>
-        <h1 style={{ fontSize: '1.75rem' }}>Let's chat!</h1>
-        <div className="flex justify-center" style={{ fontSize: '3rem', fontWeight: 700, marginTop: '1rem', marginBottom: '2rem' }}>
-          <Link href="https://www.linkedin.com/in/jacksondam" target="_blank">
-            <div aria-label="Visit Jackson Dam's LinkedIn page" className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ marginRight: '1rem', borderColor: outlineColor }}>
-              <LinkedIn fill={iconFill} />
+            <NavbarContent className="desk-btns" justify="end">
+              <NavbarItem className="ld-toggle">
+                <ThemeToggle 
+                  theme={theme}
+                  onToggle={toggleTheme}
+                  outlineColor={outlineColor}
+                  iconFill={iconFill}
+                />
+              </NavbarItem>
+              <NavbarItem>
+                <Button 
+                  as={Link} 
+                  color="primary" 
+                  href={cv} 
+                  variant="shadow"
+                >
+                  View my CV
+                </Button>
+              </NavbarItem>
+            </NavbarContent>
+
+            <NavbarMenu className="flex-grow nb-menu">
+              {menuItems.map(item => (
+                <NavbarMenuItem key={item.key}>
+                  <Link
+                    className={`w-full ${
+                      selectedKey === item.key
+                        ? 'text-primary font-semibold'
+                        : 'text-foreground'
+                    }`}
+                    href="#"
+                    size="lg"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation(item.key);
+                    }}
+                  >
+                    {item.title}
+                  </Link>
+                </NavbarMenuItem>
+              ))}
+              <NavbarMenuItem className="nbm-transplant ld-toggle" aria-label="Toggle UI theme">
+                <ThemeToggle 
+                  theme={theme}
+                  onToggle={toggleTheme}
+                  outlineColor={outlineColor}
+                  iconFill={iconFill}
+                />
+              </NavbarMenuItem>
+              <NavbarMenuItem>
+                <Button
+                  as={Link}
+                  color="primary"
+                  href={cv}
+                  variant="flat"
+                  className="w-full"
+                >
+                  View my CV
+                </Button>
+              </NavbarMenuItem>
+            </NavbarMenu>
+          </Navbar>
+
+          <div className="flex-grow relative">
+            <LazyMotion features={domAnimation}>
+              <AnimatePresence mode="popLayout" initial={false}>
+                <m.div
+                  key={selectedKey}
+                  className="left-0 right-0 top-[64px] flex flex-col items-center justify-center px-4"
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  variants={variants}
+                  layout
+                >
+                  <ContentRenderer selectedKey={selectedKey} profileImg={profileImg} />
+                </m.div>
+              </AnimatePresence>
+            </LazyMotion>
+          </div>
+          
+          <footer className="text-center fter" style={{marginTop: '15vh', marginBottom: '2rem'}}>
+            <h1 style={{ fontSize: '3rem', fontWeight: 700 }}>Get in touch</h1>
+            <h1 style={{ fontSize: '1.75rem' }}>Let's chat!</h1>
+            <div className="flex justify-center" style={{ fontSize: '3rem', fontWeight: 700, marginTop: '1rem', marginBottom: '2rem' }}>
+              <Link href="https://www.linkedin.com/in/jacksondam" target="_blank">
+                <div aria-label="Visit Jackson Dam's LinkedIn page" className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ marginRight: '1rem', borderColor: outlineColor }}>
+                  <LinkedIn fill={iconFill} />
+                </div>
+              </Link>
+              <Link href="https://github.com/JacksonDam" target="_blank">
+                <div aria-label="Visit Jackson Dam's GitHub page" className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ borderColor: outlineColor }}>
+                  <GitHub fill={iconFill} />
+                </div>
+              </Link>
+              <Link href="https://medium.com/@jacksondam" target="_blank">
+                <div
+                  aria-label="Visit Jackson Dam's Medium profile"
+                  className="w-10 h-10 rounded-full border flex items-center justify-center"
+                  style={{ marginLeft: '1rem', borderColor: outlineColor }}
+                >
+                  <Medium fill={iconFill} />
+                </div>
+              </Link>
+              <Link href="mailto:jacksondam@protonmail.com">
+                <div aria-label="Send an email to Jackson Dam" className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ marginLeft: '1rem', borderColor: outlineColor }}>
+                  <Mail fill={iconFill} />
+                </div>
+              </Link>
             </div>
-          </Link>
-          <Link href="https://github.com/JacksonDam" target="_blank">
-            <div aria-label="Visit Jackson Dam's GitHub page" className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ borderColor: outlineColor }}>
-              <GitHub fill={iconFill} />
-            </div>
-          </Link>
-          <Link href="mailto:jacksondam@protonmail.com">
-            <div aria-label="Send an email to Jackson Dam" className="w-10 h-10 rounded-full border flex items-center justify-center" style={{ marginLeft: '1rem', borderColor: outlineColor }}>
-              <Mail fill={iconFill} />
-            </div>
-          </Link>
+            <div className="copyright">© Copyright Jackson Dam, 2025</div>
+          </footer>
         </div>
-        <div className="copyright">© Copyright Jackson Dam, 2025</div>
-      </footer>
-    </div>
+      </m.div>
+        )}
+      </AnimatePresence>
+    </LazyMotion>
   );
 }
