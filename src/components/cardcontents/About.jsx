@@ -12,7 +12,7 @@ export function About() {
       <br></br>
       <p>
         Previously, I studied at the University of Glasgow for my Bachelors in Computer
-        Science, where I graduated with [classification pending].
+        Science, where I graduated with First Class Honours.
       </p>
       <br></br>
       <p>
