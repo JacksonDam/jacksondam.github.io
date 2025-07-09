@@ -31,7 +31,7 @@ const projects = [
     title: 'RecViz',
     subtitle: 'Sizzle reel',
     description: 'React app to visualise recommender system datasets',
-    youtubeId: 'C-sAZBdgCtU',
+    youtubeId: 'FmvEd6L8uUA',
     thumbnail: recvizImg,
   },
   {
