@@ -19,6 +19,10 @@ export function Volunteering() {
         I delivered a guest lecture for the Object-Oriented Software Engineering 2 course
         at Glasgow in February 2025.
       </p>
+      <br></br>
+      <p>
+        Whilst studying, I undertook over 100 hours of volunteering, earning me a Saltire Award from the Scottish Government ("The Ascent" tier).
+      </p>
     </section>
   );
 }

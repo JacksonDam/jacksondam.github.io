@@ -2,7 +2,7 @@ export function Skills() {
   return (
     <section>
       <p>
-        I have recently used and am proficient in Java, Python, JavaScript, C,
+        I have recently used and I am proficient in Java, Python, JavaScript, C,
         Lua/Luau, TypeScript, and JavaScript.
       </p>
       <br></br>

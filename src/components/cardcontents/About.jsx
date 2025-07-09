@@ -11,8 +11,8 @@ export function About() {
       </p>
       <br></br>
       <p>
-        Previously, I studied at the University of Glasgow for my BSc in Computer
-        Science, where I graduated with First Class Honours.
+        Previously, I studied at the University of Glasgow for my BSc in <br></br>
+        Computer Science, where I graduated with First Class Honours.
       </p>
       <br></br>
       <p>
