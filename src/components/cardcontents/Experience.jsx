@@ -1,6 +1,8 @@
 export function Experience() {
   return (
     <section>
+      <p><strong>July 2025 - present:</strong> Software Dev Engineer at <strong>Amazon</strong>, London, on the Contribution Catalog team</p>
+      <br></br>
       <p><strong>Sep 2024 - Mar 2025:</strong> Assistant Demonstrator for Computer Science labs at the <strong>University of Glasgow</strong></p>
       <br></br>
       <p><strong>May 2024 - July 2024:</strong> Software Dev Engineer Intern at <strong>Amazon Alexa</strong>, Cambridge, on the Conversational AM & Learning team</p>
