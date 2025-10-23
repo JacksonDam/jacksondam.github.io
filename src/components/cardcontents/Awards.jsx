@@ -1,6 +1,9 @@
 export function Awards() {
   return (
     <section>
+      <p><strong>Aug 2025:</strong> Academic paper based on dissertation project accepted for publication, and presented at ACM RecSys '25, Prague 
+      <br></br>(DOI: 10.1145/3705328.3759335)</p>
+      <br></br>
       <p><strong>Jul 2025:</strong> Graduated with prizes for best final dissertation project and contribution to the Glasgow School of Computing Science</p>
       <br></br>
       <p><strong>Jun 2025:</strong> 2nd place team at Corgi AI Hackathon @ Y Combinator AI Startup School</p>

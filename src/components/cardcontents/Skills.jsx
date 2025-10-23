@@ -10,7 +10,7 @@ export function Skills() {
       <br></br>
       <p>
         Also familiar with HTML, CSS, Django and React frameworks, Bash, Git, and
-        unit testing frameworks (e.g. JUnit).
+        unit testing / mocking frameworks (e.g. JUnit, Mockito). I have a working knowledge of Spring Boot and Guice.
       </p>
     </section>
   );

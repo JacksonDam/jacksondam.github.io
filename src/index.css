@@ -90,6 +90,8 @@ html, ul, nav, .tabs, div[data-slot="base"], div[data-slot="tabList"], div[data-
   max-width: 2.5rem;
   max-height: 2.5rem;
   min-width: 0.0rem !important;
+  margin-left: 0.9rem;
+  margin-right: 0.9rem;
 }
 
 .nbm-transplant {
@@ -103,4 +105,8 @@ html, ul, nav, .tabs, div[data-slot="base"], div[data-slot="tabList"], div[data-
 
 .video-card-description {
   color: white !important;
+}
+
+.button-grid {
+  padding-left: 1.8rem;
 }

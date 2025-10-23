@@ -17,7 +17,7 @@ import CardPanel from './components/CardPanel';
 import profileImg from './assets/profile.webp';
 import cv from './assets/Jackson_Dam_CV.pdf';
 
-import { About, Awards, Experience, Projects, Skills, Volunteering } from './components/cardcontents';
+import { About, Awards, Experience, Projects, Skills, Volunteering, Friends } from './components/cardcontents';
 
 const variants = {
   enter: { 
@@ -65,6 +65,7 @@ const menuItems = [
   { key: 'awards',     title: 'Awards' },
   { key: 'skills',     title: 'Skills' },
   { key: 'volunteering', title: 'Volunteering' },
+  { key: 'friends', title: 'Friends' },
 ];
 
 const contents = {
@@ -74,6 +75,7 @@ const contents = {
   awards:       Awards,
   skills:       Skills,
   volunteering: Volunteering,
+  friends:      Friends,
 };
 
 const LinkedIn = React.memo(({ fill }) => (
