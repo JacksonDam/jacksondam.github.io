@@ -49,7 +49,7 @@ export function Projects() {
     <div className='grid video-grid'>
       {projects.map((project) => (
         <Card key={project.id} isFooterBlurred className="overflow-hidden" shadow='none'>
-          <CardHeader className="absolute top-2 flex-col !items-start">
+          <CardHeader className="absolute top-2 flex-col !items-center">
             <p className="text-tiny text-white/60 font-bold video-card-title">{project.subtitle}</p>
             <h4 className="text-white font-medium text-large video-card-title">{project.title}</h4>
           </CardHeader>

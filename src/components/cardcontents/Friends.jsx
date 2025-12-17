@@ -8,6 +8,7 @@ export function Friends() {
     { name: "Fraser Miller", url: "https://frasermiller.dev/" },
     { name: "Luke Ormiston", url: "https://lukeormiston.com/" },
     { name: "Mark Turnbull", url: "https://mrktrnbll.dev/" },
+    { name: "Nour Elfangary", url: "https://nourelfangary.com/" },
     { name: "Stefan Vučković", url: "https://stefvuck.dev/" },
   ];
 

@@ -17,6 +17,8 @@ export function Awards() {
       <p><strong>Oct 2021:</strong> 2nd overall team at Glasgow University Code Olympics</p>
       <br></br>
       <p><strong>Oct 2021:</strong> 5th place individual in HackerRank Python problems at Glasgow University Code Olympics</p>
+      <br></br>
+      <p><strong>Sep 2015:</strong> Won the Charlie Long Memorial Prize for Computing at Nottingham High School</p>
     </section>
   );
 }
