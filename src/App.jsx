@@ -409,7 +409,7 @@ export default function App() {
                 </div>
               </Link>
             </div>
-            <div className="copyright">© Copyright Jackson Dam, 2025</div>
+            <div className="copyright">© Copyright Jackson Dam, 2026</div>
           </footer>
         </div>
       </m.div>
