@@ -36,11 +36,11 @@ const projects = [
   },
   {
     id: 'project4',
-    title: 'Front Row clone',
+    title: 'First Row',
     subtitle: 'Short demo',
     description: 'Working SwiftUI recreation of the old Apple TV / Front Row UI',
-    youtubeId: '9HxGW2KCNVQ&t=17',
-    thumbnail: 'https://img.youtube.com/vi/9HxGW2KCNVQ/maxresdefault.jpg',
+    youtubeId: '0N7zV1Sldp4&t=17',
+    thumbnail: 'https://github.com/JacksonDam/FirstRow/blob/main/docs/images/2026-03-09-20-30-17.png?raw=true',
   },
 ];
 
