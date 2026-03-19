@@ -37,7 +37,7 @@ const projects = [
   {
     id: 'project4',
     title: 'First Row',
-    subtitle: 'Short demo',
+    subtitle: 'Sizzle reel',
     description: 'Working SwiftUI recreation of the old Apple TV / Front Row UI',
     youtubeId: '0N7zV1Sldp4&t=17',
     thumbnail: 'https://github.com/JacksonDam/FirstRow/blob/main/docs/images/2026-03-09-20-30-17.png?raw=true',
